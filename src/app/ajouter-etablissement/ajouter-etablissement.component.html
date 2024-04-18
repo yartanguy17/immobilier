@@ -1,0 +1,165 @@
+<app-v-menu-bar></app-v-menu-bar>
+
+<div class="container">
+    <div class="row">
+
+        <div id="stepper" class="bs-stepper col-12">
+            <div class="bs-stepper-header" role="tablist">
+                <!-- your steps here -->
+                <div class="step" data-target="#logins-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="logins-part"
+                        id="logins-part-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">Information du bien</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#information-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="information-part"
+                        id="information-part-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">images du bien</span>
+                    </button>
+                </div>
+
+                <div class="line"></div>
+                <div class="step" data-target="#résume-part">
+                    <button type="button" class="step-trigger" role="tab" aria-controls="résume-part"
+                        id="résume-part-trigger">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">résumé du bien</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bs-stepper-content">
+                <!-- your steps content here -->
+                <div id="logins-part" class="content ml-auto mr-auto col-8" role="tabpanel"
+                    aria-labelledby="logins-part-trigger">
+                    <!-- step1 -->
+                    <form class="mt-2">
+                        <div class="md-form mb-0 mt-1">
+                            <input type="text" id="text" class="form-control font-size-14 mb-0" name="titre"  placeholder="Titre"
+                                [(ngModel)]="bienObj.titre">
+                        </div>
+
+                        <div class="md-form mb-0 mt-1">
+                            <input type="text" id="localisation" class="form-control font-size-14 mb-0" name="cooordonnee"
+                                placeholder="Coordonées GPS" [(ngModel)]="bienObj.coordonnee">
+                        </div>
+                        <div class="md-form mb-0 mt-1">
+                            <input type="text" id="ville" class="form-control font-size-14 mb-0" placeholder="Ville" name="ville"
+                                [(ngModel)]="bienObj.ville">
+                        </div>
+                        <div class="md-form mb-0 mt-1">
+                            <input type="text" id="quartier" class="form-control font-size-14 mb-0" name="quartier"
+                                placeholder="Quartier" [(ngModel)]="bienObj.quartier">
+                        </div>
+                        <div class="md-form mb-0 mt-1">
+                            <input type="number" id="dimension" class="form-control font-size-14 mb-0" name="dimension"
+                                placeholder="Dimension" [(ngModel)]="bienObj.dimension">
+                        </div>
+                        <div class="md-form mb-0 mt-1">
+                            <input type="text" id="description" class="form-control font-size-14 mb-0" name="descrption"
+                                placeholder="Description" [(ngModel)]="bienObj.description">
+                        </div>
+
+                        <div class="md-form mb-0 mt-1">
+                            <input type="number" id="prix" class="form-control font-size-14 mb-0" placeholder="Prix" name="prix"
+                                [(ngModel)]="bienObj.prix">
+                        </div>
+                        
+                        <div class="md-form mb-0 mt-1">
+                            <select class="form-control font-size-14 mb-0" name="type" [(ngModel)]="bienObj.type">
+                                <option value="" selected disabled >Choisir un type</option>
+                                <option value="T">Tarrain</option>
+                                <option value="V">Villa</option>
+                                <option value="M">Maison</option>
+                                <option value="A">Appartement</option>
+                                <option value="C">Chambre</option>
+                            </select>
+                        </div>
+                        <div class="md-form mb-0 mt-1">
+                            <select class="form-control font-size-14 mb-0" name="categorie" [(ngModel)]="bienObj.categorie">
+                                <option value="" selected disabled>Choisir catégorie</option>
+                                <option value="L">Location</option>
+                                <option value="V">Vente</option>
+
+                            </select>
+                        </div>
+                        <div class="md-form mb-0 mt-1">
+                            <select class="form-control font-size-14 mb-0" name="agence" [(ngModel)]="bienObj.agence">
+                                <option value="">agence</option>
+                                <option *ngFor="let agence of tableauCompte" value="{{agence.id}}">{{agence.nom}}
+                                </option>
+
+
+                            </select>
+                        </div>
+
+                        <!-- <button class="btn btn-primary btn-block btn-md rounded z-depth-0 mt-3">
+                        Soumettre
+                    </button> -->
+                    </form>
+                </div>
+                <div id="information-part" class="content ml-auto mr-auto col-8" role="tabpanel"
+                    aria-labelledby="information-part-trigger">
+                    <!-- step2 -->
+                    <!-- <form [formGroup]="medias" class="mt-2" (ngSubmit)="sendMedias()"> -->
+                        <div class="md-form mb-0 mt-1">
+                            <input type="text" id="text" class="form-control font-size-14 mb-0" placeholder="Titre"
+                                name="titre" [(ngModel)]="bienObj.titre" [ngClass]="{ 'is-invalid': submitted && fc.titre.errors }">
+                            <div *ngIf="submitted && fc.titre.errors" class="invalid-feedback">
+                                <div *ngIf="fc.titre.errors.required">Le titre est obligatoir</div>
+                            </div>
+                        </div>
+                        <div class="md-form mb-0 mt-1">
+                            <select class="form-control font-size-14 mb-0" name="typeImg" [(ngModel)]="bienObj.typeTmg"
+                                [ngClass]="{ 'is-invalid': submitted && fc.type.errors }">
+                                <option value="" selected disabled>Type</option>
+                                <option value="Location">Photo</option>
+                                <option value="Vente">Vidéo</option>
+
+                            </select>
+                        </div>
+
+                        <div class="md-form mb-0 mt-1">
+                            <span>Select Image</span>
+                            <input type="file" accept="image/*" multiple="multiple" (change)="processFile($event)">
+                        </div>
+
+                        <div class="md-form mb-0 mt-1">
+                            <select class="form-control font-size-14 mb-0" name="liaison" [(ngModel)]="bienObj.liaison"
+                                [ngClass]="{ 'is-invalid': submitted && fc.liaison.errors }">
+                                <option value="">Liez à l'etablissement</option>
+                                <option value="P">Photo</option>
+                                <option value="V">Vidéo</option>
+                            </select>
+                        </div>
+
+                        <!-- <button class="btn btn-primary btn-block btn-md rounded z-depth-0 mt-3">
+                            Envoyer
+                        </button> -->
+                    <!-- </form> -->
+                </div>
+                <div id="résume-part" class="content ml-auto mr-auto col-8" role="tabpanel"
+                    aria-labelledby="résume-part-trigger">
+                    3
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <button (click)="onPrevious()" class="btn btn-primary"> Précédent</button>
+                </div>
+                <div class="col-6" *ngIf="!submit">
+                    <button (click)="onNext()" class="btn btn-primary float-lg-right"> next</button>
+                </div>
+                <div class="col-6" *ngIf="submit">
+                    <button (click)="saveBien()" class="btn btn-success float-lg-right"> soumettre</button>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
